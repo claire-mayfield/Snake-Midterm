@@ -49,7 +49,6 @@ public class Level02GoldenAppleBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Snake"))
         {
             Debug.Log("Golden Apple Eaten!");
-            Level02Manager.Instance.Score5Points();
             Debug.Log("Moving Apple to random location");
             AppleRandomLocation();
             Debug.Log("Spawning new part of the snake.");

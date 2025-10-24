@@ -22,9 +22,9 @@ EditorBuildSettings:
     guid: ea4b6b02aa8474db79057286e7f53393
   - enabled: 0
     path: Assets/Scenes/Level02.unity
-    guid: 4b4300bd50f834870b44dd1d2106b5a2
-  - enabled: 0
-    path: Assets/Scenes/YouWin.unity
+    guid: b00c2138defac4ff1974f71656c56dc4
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
     guid: e18d92e390f3641baba50b91ca9d7246
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}

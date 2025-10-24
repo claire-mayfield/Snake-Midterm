@@ -2,24 +2,40 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.Audio;
+
 
 public class Level02Manager : MonoBehaviour
 {
     public static Level02Manager Instance;
-	
-			
-    [SerializeField] private TMP_Text _level02WinText;
 
-    [SerializeField] private int _level02ScoreToVictory = 10;
 
-    [SerializeField] private float _level02SpeedIncreaseIntensity = 0.25f;
-	
-	public KeyCode Restart;
+    [SerializeField] private TMP_Text _winText;
+    [SerializeField] private TMP_Text _gameOver;
+
+    [SerializeField] private int _scoreToVictory = 10;
+
+
+    [SerializeField] private float _speedIncreaseIntensity = 0.25f;
+
+    public KeyCode Restart;
+    public KeyCode QuitGame;
 
 
 
     [SerializeField] private GameObject _goldenApplePrefab;
     [SerializeField] private GameObject _parent;
+
+
+    [SerializeField] private AudioResource _gameOverSound;
+    [SerializeField] private AudioResource _winGame;
+    private Rigidbody2D _rb;
+    private AudioSource _source;
+
+
+    public bool Level02Completed;
+
+    public KeyCode LoadCredits;
 
 
 
@@ -45,13 +61,18 @@ public class Level02Manager : MonoBehaviour
 
     private void Start()
     {
-        _level02WinText.text = " ";
-		Score = 0;
-        SpawnGoldenApple();
+        _rb = GetComponent<Rigidbody2D>();
+        _source = GetComponent<AudioSource>();
+
+        _winText.text = " ";
+        _gameOver.text = " ";
+        Score = 0;
+
+        Level02Completed = false;
     }
-    
+
     private int _score = 0;
-    
+
     public int Score
     {
         get
@@ -62,7 +83,7 @@ public class Level02Manager : MonoBehaviour
         set
         {
             _score = value;
-            _scoreUI.text = "Score: " + Score.ToString();
+            _scoreUI.text = "Apples: " + Score.ToString() + "/" + _scoreToVictory;
         }
     }
 
@@ -72,23 +93,28 @@ public class Level02Manager : MonoBehaviour
     {
         Score++;
 
-        // Increase snake speed with each apple intake
-        Level02SnakeBehavior.Level02Speed = Level02SnakeBehavior.Level02Speed + _level02SpeedIncreaseIntensity;
-        Debug.Log("Snake Speed Increased! Speed: " + Level02SnakeBehavior.Level02Speed);
+        // INCREASE snake speed with each apple intake
+        Level02SnakeBehavior.Speed = Level02SnakeBehavior.Speed + _speedIncreaseIntensity;
+        Debug.Log("Snake Speed Increased! Speed: " + Level02SnakeBehavior.Speed);
     }
 
-    public void Score5Points()
+
+
+    public void SubtractPoint()
     {
-        Score = Score + 5;
+        Score = Score - 1;
 
-        // Increase snake speed with each apple intake
-        Level02SnakeBehavior.Level02Speed = Level02SnakeBehavior.Level02Speed + _level02SpeedIncreaseIntensity;
-        Debug.Log("Snake Speed Increased! Speed: " + Level02SnakeBehavior.Level02Speed);
+        // DECREASE snake speed with each apple intake
+        Level02SnakeBehavior.Speed = Level02SnakeBehavior.Speed - _speedIncreaseIntensity;
+        Debug.Log("Snake Speed Increased! Speed: " + SnakeBehavior.Speed);
     }
+
+
+
+
 
     void SpawnGoldenApple()
     {
-        Debug.Log("Spawning Golden Apple...");
         GameObject newGoldenApple = Instantiate(
         _goldenApplePrefab,
         Vector3.zero,
@@ -99,25 +125,70 @@ public class Level02Manager : MonoBehaviour
 
     void Update()
     {
-        if (Score >= _level02ScoreToVictory)
-        {
-			Debug.Log("Game won!");
-            SceneManager.LoadScene("YouWin");
-            Level02SnakeBehavior.AllowMovement = false;
-            Level02SnakeBehavior.GameisPlaying = false;
 
-        }
 
+        //if (Score == 5)
+        //{
+        //SpawnGoldenApple();
+        //}
+
+        // Restart Game
         if (Input.GetKey(Restart))
         {
-			Debug.Log("Removing victory text");
-            _level02WinText.text = " ";
+            Debug.Log("Removing victory text");
+            _winText.text = " ";
+            _gameOver.text = " ";
         }
-		
+
+        // Lose the game with a negative score
+        if (Score <= -1)
+        {
+            _gameOver.text = "Game Over! Press R to Restart.";
+            SnakeBehavior.AllowMovement = false;
+            SnakeBehavior.GameisPlaying = false;
+
+            _source.resource = _gameOverSound;
+            _source.Play();
+        }
+
+        // Allow credits to be loaded when victory score is met 
+        if (Score >= _scoreToVictory)
+        {
+            _source.resource = _winGame;
+            _source.Play();
+            Debug.Log("Game won!");
+            _winText.text = "You Win! Press C for Credits. Or, press R to play again.";
+            Level02Completed = true;
+            SnakeBehavior.AllowMovement = false;
+            SnakeBehavior.GameisPlaying = false;
+
+        }
+
+        // Quit the game by pressing the Q key
+        if (Input.GetKey(QuitGame))
+        {
+            Debug.Log("Quitting Game");
+            ExitGame();
+        }
+
+        if (Level02Completed == true)
+        {
+            if (Input.GetKey(LoadCredits))
+            {
+                SceneManager.LoadScene("Credits");
+            }
+        }
+
     }
 
-    
+    public static void ExitGame()
+    {
+        Application.Quit();
+    }
 
-    
+
+
+
+
 
 }

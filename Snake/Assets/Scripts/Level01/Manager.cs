@@ -11,7 +11,6 @@ public class Manager : MonoBehaviour
 	
 			
     [SerializeField] private TMP_Text _winText;
-
     [SerializeField] private TMP_Text _gameOver;
 
     [SerializeField] private int _scoreToVictory = 10;
@@ -29,9 +28,14 @@ public class Manager : MonoBehaviour
 
 
     [SerializeField] private AudioResource _gameOverSound;
-
+    [SerializeField] private AudioResource _winGame;
     private Rigidbody2D _rb;
     private AudioSource _source;
+
+
+    public bool Level01Completed;
+
+    public KeyCode LoadCredits;
 
 
 
@@ -63,6 +67,8 @@ public class Manager : MonoBehaviour
         _winText.text = " ";
         _gameOver.text = " ";
         Score = 0;
+
+        Level01Completed = false;
     }
     
     private int _score = 0;
@@ -77,7 +83,7 @@ public class Manager : MonoBehaviour
         set
         {
             _score = value;
-            _scoreUI.text = "Score: " + Score.ToString();
+            _scoreUI.text = "Apples: " + Score.ToString() + "/" + _scoreToVictory;
         }
     }
 
@@ -145,11 +151,35 @@ public class Manager : MonoBehaviour
             _source.Play();
         }
 
-        // Load Level 2 when victory score is met 
+        // Allow credits to be loaded when victory score is met 
         if (Score >= _scoreToVictory)
         {
-			Debug.Log("Game won!");
-            SceneManager.LoadScene("Level02");
+            _source.resource = _winGame;
+            _source.Play();
+            Debug.Log("Game won!");
+            Level01Completed = true;
+            SnakeBehavior.AllowMovement = false;
+            SnakeBehavior.GameisPlaying = false;
+
+            //if (SnakeBehavior.Lives == 3)
+            //{
+                //_winText.text = "You Win! Rank: A. Press C for credits. Or, press R to play again.";
+            //}
+
+            //if (SnakeBehavior.Lives == 2)
+            //{
+               // _winText.text = "You Win! Rank: B. Press C for credits. Or, press R to play again.";
+            //}
+
+            //if (SnakeBehavior.Lives == 1)
+            //{
+            ///    _winText.text = "You Win! Rank: C. Press C for credits. Or, press R to play again.";
+            //}
+
+           // if (SnakeBehavior.Lives == 0)
+           // {
+             //   _winText.text = "You Win! Rank: D. Press C for credits. Or, press R to play again.";
+            //}
 
         }
 
@@ -158,6 +188,14 @@ public class Manager : MonoBehaviour
         {
             Debug.Log("Quitting Game");
             ExitGame();
+        }
+
+        if (Level01Completed == true)
+        {
+            if (Input.GetKey(LoadCredits))
+            {
+                SceneManager.LoadScene("Credits");
+            }
         }
 
     }

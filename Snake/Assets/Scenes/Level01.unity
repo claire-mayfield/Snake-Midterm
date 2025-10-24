@@ -3419,13 +3419,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _winText: {fileID: 799607210}
   _gameOver: {fileID: 1736510157}
-  _scoreToVictory: 50
+  _scoreToVictory: 35
   _speedIncreaseIntensity: 0.1
   Restart: 114
   QuitGame: 113
   _goldenApplePrefab: {fileID: 6177464272888501962, guid: 9cba78656634e41e6be8daed7c4d2292, type: 3}
   _parent: {fileID: 0}
   _gameOverSound: {fileID: 8300000, guid: 4230b81f84e35479faaca79f1247a815, type: 3}
+  _winGame: {fileID: 0}
+  Level01Completed: 0
+  LoadCredits: 99
   _scoreUI: {fileID: 174673865}
 --- !u!4 &1140311762
 Transform:

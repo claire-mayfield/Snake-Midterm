@@ -32,7 +32,7 @@ public class Level02BlockBehavior : MonoBehaviour
     void Start()
     {
         BlockRandomLocation();
-        
+
     }
 
     // Update is called once per frame
@@ -42,6 +42,25 @@ public class Level02BlockBehavior : MonoBehaviour
         {
             Debug.Log("Moving Blocks to random locations");
             BlockRandomLocation();
+        }
+
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            BlockRandomLocation();
+
+        }
+
+        if (other.gameObject.CompareTag("EvilApple"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            BlockRandomLocation();
+
         }
 
     }

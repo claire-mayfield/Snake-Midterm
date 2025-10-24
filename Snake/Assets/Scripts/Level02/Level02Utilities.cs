@@ -4,13 +4,14 @@ using UnityEngine;
 public static class Level02Utilities
 {
     private static float _num = 0.25f;
-    
-    public enum GameState {
+
+    public enum GameState
+    {
         Play,
         Pause,
-		GameOver,
+        GameOver,
     }
- 
+
     public static float GetNonZeroRandomFloat(float min = -1.0f, float max = 1.0f)
     {
         do

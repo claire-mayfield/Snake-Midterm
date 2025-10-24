@@ -51,14 +51,21 @@ public class BlockBehavior : MonoBehaviour
 
         if (other.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            Debug.Log("Block shouldn't spawn here - moving to another location");
             BlockRandomLocation();
 
         }
 
         if (other.gameObject.CompareTag("EvilApple"))
         {
-            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            Debug.Log("Block shouldn't spawn here - moving to another location");
+            BlockRandomLocation();
+
+        }
+
+        if (other.gameObject.CompareTag("Snake"))
+        {
+            Debug.Log("Block shouldn't spawn here - moving to another location");
             BlockRandomLocation();
 
         }
