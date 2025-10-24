@@ -8,8 +8,8 @@ using UnityEngine.Audio;
 public class Manager : MonoBehaviour
 {
     public static Manager Instance;
-	
-			
+
+
     [SerializeField] private TMP_Text _winText;
     [SerializeField] private TMP_Text _gameOver;
 
@@ -17,8 +17,8 @@ public class Manager : MonoBehaviour
 
 
     [SerializeField] private float _speedIncreaseIntensity = 0.25f;
-	
-	public KeyCode Restart;
+
+    public KeyCode Restart;
     public KeyCode QuitGame;
 
 
@@ -70,9 +70,9 @@ public class Manager : MonoBehaviour
 
         Level01Completed = false;
     }
-    
+
     private int _score = 0;
-    
+
     public int Score
     {
         get
@@ -135,7 +135,7 @@ public class Manager : MonoBehaviour
         // Restart Game
         if (Input.GetKey(Restart))
         {
-			Debug.Log("Removing victory text");
+            Debug.Log("Removing victory text");
             _winText.text = " ";
             _gameOver.text = " ";
         }
@@ -163,12 +163,12 @@ public class Manager : MonoBehaviour
 
             //if (SnakeBehavior.Lives == 3)
             //{
-                //_winText.text = "You Win! Rank: A. Press C for credits. Or, press R to play again.";
+            //_winText.text = "You Win! Rank: A. Press C for credits. Or, press R to play again.";
             //}
 
             //if (SnakeBehavior.Lives == 2)
             //{
-               // _winText.text = "You Win! Rank: B. Press C for credits. Or, press R to play again.";
+            // _winText.text = "You Win! Rank: B. Press C for credits. Or, press R to play again.";
             //}
 
             //if (SnakeBehavior.Lives == 1)
@@ -176,9 +176,9 @@ public class Manager : MonoBehaviour
             ///    _winText.text = "You Win! Rank: C. Press C for credits. Or, press R to play again.";
             //}
 
-           // if (SnakeBehavior.Lives == 0)
-           // {
-             //   _winText.text = "You Win! Rank: D. Press C for credits. Or, press R to play again.";
+            // if (SnakeBehavior.Lives == 0)
+            // {
+            //   _winText.text = "You Win! Rank: D. Press C for credits. Or, press R to play again.";
             //}
 
         }
@@ -204,10 +204,10 @@ public class Manager : MonoBehaviour
     {
         Application.Quit();
     }
-    
 
-    
 
-    
+
+
+
 
 }
