@@ -58,7 +58,15 @@ public class EvilAppleBehavior : MonoBehaviour
 
         }
 
+        if (other.gameObject.CompareTag("EvilApple"))
+        {
+            Debug.Log("Evil Apple shouldn't spawn here - moving to another location");
+            EvilAppleRandomLocation();
+
+        }
+
     }
+
 
 
 }

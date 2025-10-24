@@ -45,4 +45,23 @@ public class BlockBehavior : MonoBehaviour
         }
 
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            BlockRandomLocation();
+
+        }
+
+        if (other.gameObject.CompareTag("EvilApple"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            BlockRandomLocation();
+
+        }
+
+    }
 }

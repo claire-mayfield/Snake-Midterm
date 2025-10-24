@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 68dac937e722347709c94b14e6f68ce3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _level02WinText: {instanceID: 0}
+  - _goldenApplePrefab: {fileID: 6177464272888501962, guid: 9cba78656634e41e6be8daed7c4d2292, type: 3}
+  - _parent: {fileID: 6177464272888501962, guid: 9cba78656634e41e6be8daed7c4d2292, type: 3}
+  - _scoreUI: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

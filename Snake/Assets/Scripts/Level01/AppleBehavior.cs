@@ -54,8 +54,19 @@ public class AppleBehavior : MonoBehaviour
                 AppleRandomLocation();
                 Debug.Log("Spawning new part of the snake.");
 
-                // Move evil apples to new random location
-                EvilAppleBehavior.Instance.EvilAppleRandomLocation();
+        }
+
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            AppleRandomLocation();
+
+        }
+
+        if (other.gameObject.CompareTag("EvilApple"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            AppleRandomLocation();
 
         }
 
