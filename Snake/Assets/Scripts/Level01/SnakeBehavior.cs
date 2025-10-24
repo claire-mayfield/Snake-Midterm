@@ -9,22 +9,20 @@ public class SnakeBehavior : MonoBehaviour
 	[SerializeField] private GameObject _snakeBodyPrefab;
 
 	public static float Speed = 2.0f;
-	
+
 	[SerializeField] private TMP_Text _gameOverText;
 	[SerializeField] private TMP_Text _pauseText;
+	[SerializeField] private TMP_Text _livesText;
 
-    public KeyCode RightDirection;
-    public KeyCode LeftDirection;
+	public KeyCode RightDirection;
+	public KeyCode LeftDirection;
 
-    public KeyCode UpDirection;
-    public KeyCode DownDirection;
-	
+	public KeyCode UpDirection;
+	public KeyCode DownDirection;
+
 	public KeyCode Restart;
 	public KeyCode Pause;
 	public KeyCode Unpause;
-
-
-	public static int Lives = 3;
 
 	public static bool AllowMovement = true;
 	public static bool GameisPlaying = true;
@@ -49,10 +47,26 @@ public class SnakeBehavior : MonoBehaviour
 	public int SnakeBodySize;
 
 
+	private int _lives = 3;
+	public int Lives
+	{
+		get
+		{
+			return _lives;
+		}
+
+		set
+		{
+			_lives = value;
+			_livesText.text = "Lives: " + Lives.ToString();
+		}
+	}
+
+
 
 
 	void Start()
-    {
+	{
 		_rb = GetComponent<Rigidbody2D>();
 		_source = GetComponent<AudioSource>();
 
@@ -75,7 +89,7 @@ public class SnakeBehavior : MonoBehaviour
 		SnakeBody = new Transform[100];
 
 		for (int i = 0; i < 100; i++)
-        {
+		{
 			Debug.Log("Spawning Snake Body segment...");
 			GameObject newSnakeBodySegment = Instantiate(
 												_snakeBodyPrefab,
@@ -93,9 +107,9 @@ public class SnakeBehavior : MonoBehaviour
 
 	}
 
-    void Update()
-    {
-        float HorizontalMovement = 0.0f;
+	void Update()
+	{
+		float HorizontalMovement = 0.0f;
 		float VerticalMovement = 0.0f;
 
 
@@ -145,7 +159,7 @@ public class SnakeBehavior : MonoBehaviour
 			transform.position += new Vector3(0.0f, VerticalMovement * Time.deltaTime, 0.0f);
 
 
-			if(OldPositionCount >= 120)
+			if (OldPositionCount >= 20)
 
 			{
 				Debug.Log("The head has moved 100 times. We're gonna move the body.");
@@ -157,7 +171,7 @@ public class SnakeBehavior : MonoBehaviour
 				if (SnakeBodySize >= 1)
 				{
 					for (int i = 0; i < 100; i++)
-                    {
+					{
 						Vector3 temporary = SnakeBody[i].position;
 						SnakeBody[i].position = CurrentPosition;
 						CurrentPosition = temporary;
@@ -175,20 +189,20 @@ public class SnakeBehavior : MonoBehaviour
 				}
 
 			}
-				
+
 
 		}
-		
 
-        if (Input.GetKey(Restart))
-        {
+
+		if (Input.GetKey(Restart))
+		{
 			Debug.Log("Resetting snake position and score");
-            ResetSnake();
-        }
+			ResetSnake();
+		}
 
 		if (GameisPlaying == true)
 
-        {
+		{
 			if (Input.GetKey(Pause))
 			{
 				Debug.Log("Game Paused.");
@@ -266,10 +280,10 @@ public class SnakeBehavior : MonoBehaviour
 
 	}
 
-	
 
-    void ResetSnake()
-    {
+
+	void ResetSnake()
+	{
 		Manager.Instance.Score = 0;
 		transform.position = Vector3.zero;
 		_gameOverText.text = " ";
@@ -280,9 +294,9 @@ public class SnakeBehavior : MonoBehaviour
 		SnakeBodySize = 0;
 
 		for (int i = 0; i < 100; i++)
-			{
-				SnakeBody[i].gameObject.SetActive(false);
-			}
+		{
+			SnakeBody[i].gameObject.SetActive(false);
+		}
 
 	}
 
@@ -302,7 +316,7 @@ public class SnakeBehavior : MonoBehaviour
 
 
 	void AddBodySegment()
-    {
+	{
 		Vector3 headPosition = transform.position;
 		Debug.Log("Adding a body segment " + SnakeBodySize);
 		Transform nextSegment = SnakeBody[SnakeBodySize];

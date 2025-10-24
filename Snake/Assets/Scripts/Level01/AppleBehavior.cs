@@ -70,6 +70,13 @@ public class AppleBehavior : MonoBehaviour
 
         }
 
+        if (other.gameObject.CompareTag("Apple"))
+        {
+            Debug.Log("Apple shouldn't spawn here - moving to another location");
+            AppleRandomLocation();
+
+        }
+
     }
 
     
